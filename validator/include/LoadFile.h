@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
+
+#include "Edge.h"
 #include "Graph.h"
 #include "CostMatrix.h"
 
@@ -11,6 +14,8 @@ class LoadFile {
 private:
 
     std::string path;
+
+    CostMatrix *matrix;
 
 public:
 
@@ -23,6 +28,8 @@ public:
     void readNetworkInfo();
 
     void readCostMatrix(CostMatrix *costMatrix);
+
+    std::vector<Edge> readEdgesList(std::string resultsPath);
 };
 
 #endif // LOADFILE_H

@@ -22,6 +22,7 @@ INC=include/
 #	$(CP) $(COPT) -I $(INC) $(SRC)Main.cpp -o $(OBJ)Main.o
 
 LoadFile.o: Graph.o CostMatrix.o
+	$(CP) $(COPT) -I $(INC) $(SRC)LoadFile.cpp -o $(OBJ)LoadFile.o
 
 Graph.o: Vertex.o Edge.o UnionFind.o
 	$(CP) $(COPT) -I $(INC) $(SRC)Graph.cpp -o $(OBJ)Graph.o

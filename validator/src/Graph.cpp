@@ -57,14 +57,12 @@ void Graph::connect(Vertex &v1, Vertex &v2, int cost) {
 	vertices.push_back(v2);
 	Edge e(v1, v2, ++edgeCounter, cost);
 	edges.push_back(e);
-	v1.increaseDegree();
-	v2.increaseDegree();
 }
 
-void Graph::addEdge(Edge e) {
+void Graph::addEdge(Edge &e) {
+	vertices.push_back(e.getInitial());
+	vertices.push_back(e.getFinal());
 	edges.push_back(e);
-	e.getInitial().increaseDegree();
-	e.getFinal().increaseDegree();
 }
 
 bool Graph::isCyclic() {

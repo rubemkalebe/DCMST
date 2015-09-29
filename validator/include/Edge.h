@@ -19,15 +19,17 @@ public:
 
     Edge();
 
+    ~Edge();
+
     Edge(Vertex &initial, Vertex &final, int id, int cost);
 
     Vertex getInitial() const;
 
-    void setInitial(const Vertex &value);
+    void setInitial(Vertex value);
 
     Vertex getFinal() const;
 
-    void setFinal(const Vertex &value);
+    void setFinal(Vertex value);
 
     int getId() const;
 

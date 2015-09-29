@@ -24,6 +24,7 @@ void LoadFile::readNetworkInfo()
 
 void LoadFile::readCostMatrix(CostMatrix *costMatrix)
 {
+    this->matrix = costMatrix;
     int n, d;
     int cX;
     std::ifstream in(path.c_str());
@@ -42,6 +43,24 @@ void LoadFile::readCostMatrix(CostMatrix *costMatrix)
         }
     }
     in.close();
+}
+
+std::vector<Edge> LoadFile::readEdgesList(std::string resultsPath) {
+  int u, v;
+  std::ifstream in(resultsPath.c_str());
+  std::vector<Edge> edges;
+  if(in.is_open()) {
+    int i = 0;
+    while(in >> u >> v) {
+      Vertex v1(u);
+      Vertex v2(v);
+      Edge e(v1, v2, i, matrix->getElement(u-1, v-1));
+      edges.push_back(e);
+      i++;
+    }
+  }
+  in.close();
+  return edges;
 }
 
 LoadFile::LoadFile(std::string path) {

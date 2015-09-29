@@ -7,23 +7,15 @@ private:
 
     int id;
 
-    int degree;
-
 public:
 
     Vertex();
 
-    Vertex(int id, int degree);
+    Vertex(int id);
 
     int getId() const;
 
     void setId(int value);
-
-    int getDegree() const;
-
-    void increaseDegree();
-
-    void decreaseDegree();
 
 };
 

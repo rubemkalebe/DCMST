@@ -5,7 +5,7 @@ Vertex Edge::getInitial() const {
     return initial;
 }
 
-void Edge::setInitial(const Vertex &value) {
+void Edge::setInitial(Vertex value) {
     initial = value;
 }
 
@@ -13,7 +13,7 @@ Vertex Edge::getFinal() const {
     return final;
 }
 
-void Edge::setFinal(const Vertex &value) {
+void Edge::setFinal(Vertex value) {
     final = value;
 }
 
@@ -36,6 +36,10 @@ void Edge::setCost(int value) {
 Edge::Edge() {
     id = 0;
     cost = 0;
+}
+
+Edge::~Edge() {
+
 }
 
 Edge::Edge(Vertex &initial, Vertex &final, int id, int cost) {

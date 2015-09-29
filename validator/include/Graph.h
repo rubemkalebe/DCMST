@@ -53,7 +53,7 @@ public:
 
 	void connect(Vertex &v1, Vertex &v2, int cost);
 
-	void addEdge(Edge e);
+	void addEdge(Edge &e);
 
 	bool isCyclic();
 
