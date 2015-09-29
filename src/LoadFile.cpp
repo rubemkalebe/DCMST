@@ -1,0 +1,49 @@
+#include "LoadFile.h"
+
+std::string LoadFile::getPath() const
+{
+    return path;
+}
+
+void LoadFile::setPath(const std::string &value)
+{
+    path = value;
+}
+
+void LoadFile::readNetworkInfo()
+{
+    int n, d;
+    std::ifstream in(path.c_str());
+    if(in.is_open()) {
+        in >> n >> d;
+        Tree::setVertexMax(n);
+        Tree::setDegreeMax(d);
+    }
+    in.close();
+}
+
+void LoadFile::readCostMatrix(CostMatrix costMatrix)
+{
+    int n, d;
+    int cX;
+    std::ifstream in(path.c_str());
+    if(in.is_open()) {
+        in >> n >> d;
+        for(int i = 0; i < Tree::getVertexMax(); i++) {
+            for(int j = i; j < Tree::getVertexMax(); j++) {
+                if(i == j) {
+                    costMatrix.setElement(i, j, 0);
+                } else {
+                    in >> cX;
+                    costMatrix.setElement(i, j, cX);
+                    costMatrix.setElement(j, i, cX);
+                }
+            }
+        }
+    }
+    in.close();
+}
+
+LoadFile::LoadFile(std::string path) {
+    this->path = path;
+}
