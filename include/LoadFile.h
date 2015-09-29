@@ -22,7 +22,7 @@ public:
 
     void readNetworkInfo();
 
-    void readCostMatrix(CostMatrix costMatrix);
+    void readCostMatrix(CostMatrix *costMatrix);
 };
 
 #endif // LOADFILE_H

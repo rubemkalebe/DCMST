@@ -1,4 +1,5 @@
 #include "UnionFind.h"
+#include <iostream>
 
 UnionFind::UnionFind(int n) {
     _size = n+1;
@@ -12,17 +13,30 @@ UnionFind::UnionFind(int n) {
     }
 }
 
-UnionFind::~UnionFind() {
+void UnionFind::destroy() {
     delete [] id;
     delete [] rank;
 }
 
+UnionFind::~UnionFind() {
+    destroy();
+}
+
 int UnionFind::findSet(int x) {
-    while(x != id[x]) {
+    /*while(x != id[x]) {
         id[x] = id[id[x]];  // Path compression by halving (reduz a altura para metade)
         x = id[x];
     }
-    return x;
+    return x;*/
+    int root = x;
+        while (root != id[root])
+            root = id[root];
+        while (x != root) {
+            int newp = id[x];
+            id[x] = root;
+            x = newp;
+        }
+        return root;
 }
 
 bool UnionFind::sameComponent(int x, int y) {

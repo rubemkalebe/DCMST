@@ -5,7 +5,7 @@ Vertex::Vertex() {
 }
 
 Vertex::Vertex(int id) {
-    this->id = 0;
+    this->id = id;
 }
 
 int Vertex::getId() const {

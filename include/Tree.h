@@ -9,7 +9,7 @@ class Tree {
 
 private:
 
-    std::vector<Edge> tree;
+    std::vector<Edge> *tree;
 
     int *degree;
 
@@ -27,15 +27,15 @@ public:
 
     ~Tree();
 
-    bool addEdge(Edge e);
+    bool addEdge(Edge &e);
 
     void removeEdge();
 
-    void update(Tree t);
+    void update(Tree &t);
 
-    std::vector<Edge> getTree() const;
+    std::vector<Edge>* getTree() const;
 
-    void setTree(const std::vector<Edge> &value);
+    void setTree(std::vector<Edge> *value);
 
     int *getDegree() const;
 

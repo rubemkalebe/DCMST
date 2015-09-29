@@ -4,12 +4,12 @@
 int Tree::vertexMax;
 int Tree::degreeMax;
 
-std::vector<Edge> Tree::getTree() const
+std::vector<Edge>* Tree::getTree() const
 {
     return tree;
 }
 
-void Tree::setTree(const std::vector<Edge> &value)
+void Tree::setTree(std::vector<Edge> *value)
 {
     tree = value;
 }
@@ -77,6 +77,7 @@ void Tree::decreaseDegree(int i, int j)
 }
 
 Tree::Tree() {
+    tree = new std::vector<Edge>();
     degree = new int[vertexMax];
     for(int i = 0; i < vertexMax; i++) {
         degree[i] = 0;
@@ -86,15 +87,20 @@ Tree::Tree() {
 }
 
 Tree::~Tree() {
+    delete tree;
     delete [] degree;
-    delete uf;
+    //delete uf;
+    //uf->destroy();
+    /*if(uf != NULL) {
+        uf = NULL;
+    }*/
 }
 
-bool Tree::addEdge(Edge e)
+bool Tree::addEdge(Edge &e)
 {
     if(((degree[e.getInitial().getId()-1] < degreeMax) && (degree[e.getFinal().getId()-1] < degreeMax))
             && (!uf->sameComponent(e.getInitial().getId(), e.getFinal().getId()))) {
-        tree.push_back(e);
+        tree->push_back(e);
         _totalCost += e.getCost();
         increaseDegree(e.getInitial().getId()-1, e.getFinal().getId()-1);
         uf->make_union(e.getInitial().getId(), e.getFinal().getId());
@@ -106,30 +112,35 @@ bool Tree::addEdge(Edge e)
 
 void Tree::removeEdge()
 {
-    decreaseDegree(tree.at(tree.size()-1).getInitial().getId()-1,
-            tree.at(tree.size()-1).getInitial().getId()-1);
-    _totalCost -= tree.at(tree.size()-1).getCost();
-    tree.pop_back();
+    decreaseDegree(tree->at(tree->size()-1).getInitial().getId()-1,
+            tree->at(tree->size()-1).getFinal().getId()-1);
+    _totalCost -= tree->at(tree->size()-1).getCost();
+    tree->pop_back();
+    //uf->destroy();
+    delete uf;
     uf = new UnionFind(vertexMax);
-    for(Edge e : tree) {
+    for(Edge e : *tree) {
         uf->make_union(e.getInitial().getId(), e.getFinal().getId());
     }
 }
 
-void Tree::update(Tree t)
+void Tree::update(Tree &t)
 {
-        std::vector<Edge> eTemp = t.getTree();
-        int j = 0;
-        for(Edge e : eTemp) {
-            tree[j] = e;
-            j++;
-        }
-        int *vTemp = t.getDegree();
-        for(int i = 0; i < vertexMax; i++) {
-            degree[i] = vTemp[i];
-        }
-        this->uf = t.getUf();
-        this->_totalCost = t.totalCost();
+    delete tree;
+    std::vector<Edge> *eTemp = t.getTree();
+    tree = new std::vector<Edge>();
+    for(Edge e : *eTemp) {
+        tree->push_back(e);
+    }
+    int *vTemp = t.getDegree();
+    for(int i = 0; i < vertexMax; i++) {
+        degree[i] = vTemp[i];
+    }
+    //delete uf;
+    //uf->destroy();
+    //this->uf = NULL;
+    this->uf = t.getUf();
+    this->_totalCost = t.totalCost();
 }
 
 int Tree::getDegree(int id) const {

@@ -17,6 +17,8 @@ public:
 
     ~UnionFind();
 
+    void destroy();
+
     int findSet(int x);
 
     bool sameComponent(int x, int y);

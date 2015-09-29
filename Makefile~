@@ -25,7 +25,7 @@ Backtracking.o: Vertex.o Edge.o CostMatrix.o Tree.o Chronometer.o
 	$(CP) $(COPT) -I $(INC) $(SRC)Backtracking.cpp -o $(OBJ)Backtracking.o
 
 SaveResults.o: Edge.o Tree.o
-	$(CP) $(COPT) -I $(INC) $(SRC)SaveResults.cpp -o $(OBJ)SaveResults.o -std=c++0x
+	$(CP) $(COPT) -I $(INC) $(SRC)SaveResults.cpp -o $(OBJ)SaveResults.o
 
 LoadFile.o: CostMatrix.o Tree.o
 	$(CP) $(COPT) -I $(INC) $(SRC)LoadFile.cpp -o $(OBJ)LoadFile.o

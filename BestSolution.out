@@ -1,0 +1,4 @@
+Menor custo: 104
+Árvore de menor custo: 1-2 1-4 2-3 3-5 
+Soluções válidas geradas: 60
+Tempo total gasto na busca pela solução: 0.000168ms

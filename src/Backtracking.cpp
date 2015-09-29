@@ -1,5 +1,6 @@
 #include "Backtracking.h"
-
+#include <iostream>
+using namespace std;
 int Backtracking::edges(int n) {
 	return (n * (n - 1)) / 2;
 }
@@ -11,7 +12,7 @@ int Backtracking::initializeLinkVector(Edge link[]) {
 			if(i != j) {
 				Vertex v1(i+1);
 				Vertex v2(j+1);
-				Edge e(v1, v2, countEdges, costMatrix.getElement(i, j));
+				Edge e(v1, v2, countEdges, costMatrix->getElement(i, j));
 				link[countEdges++] = e;
 			}
 		}
@@ -19,10 +20,10 @@ int Backtracking::initializeLinkVector(Edge link[]) {
 	return countEdges;
 }
 
-void Backtracking::combinations(Edge link[], int length, int size, int startPosition, Tree tree) {
+void Backtracking::combinations(Edge link[], int length, int size, int startPosition, Tree &tree) {
 	if(size == 0) {
-		if((solutions == 0) || (tree.totalCost() < bestTree.totalCost())) {			
-			bestTree.update(tree);
+		if((solutions == 0) || (tree.totalCost() < bestTree->totalCost())) {
+			bestTree->update(tree);
 		}
 		solutions++;
 		return;
@@ -38,14 +39,15 @@ void Backtracking::combinations(Edge link[], int length, int size, int startPosi
 	}
 }
 
-Backtracking::Backtracking(CostMatrix &costMatrix) {
+Backtracking::Backtracking(CostMatrix *costMatrix) {
 	solutions = 0;
 	executionTime = 0;
 	this->costMatrix = costMatrix;
+	bestTree = new Tree();
 }
 
 Backtracking::~Backtracking() {
-
+	delete bestTree;
 }
 
 void Backtracking::findMinimum() {
@@ -59,7 +61,7 @@ void Backtracking::findMinimum() {
 	executionTime = Chronometer::elapsedTime();
 }
 
-Tree Backtracking::getBestTree() {
+Tree* Backtracking::getBestTree() {
 	return bestTree;
 }
 

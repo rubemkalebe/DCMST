@@ -22,21 +22,21 @@ void LoadFile::readNetworkInfo()
     in.close();
 }
 
-void LoadFile::readCostMatrix(CostMatrix costMatrix)
+void LoadFile::readCostMatrix(CostMatrix *costMatrix)
 {
     int n, d;
     int cX;
     std::ifstream in(path.c_str());
     if(in.is_open()) {
         in >> n >> d;
-        for(int i = 0; i < Tree::getVertexMax(); i++) {
-            for(int j = i; j < Tree::getVertexMax(); j++) {
+        for(int i = 0; i < costMatrix->size(); i++) {
+            for(int j = i; j < costMatrix->size(); j++) {
                 if(i == j) {
-                    costMatrix.setElement(i, j, 0);
+                    costMatrix->setElement(i, j, 0);
                 } else {
                     in >> cX;
-                    costMatrix.setElement(i, j, cX);
-                    costMatrix.setElement(j, i, cX);
+                    costMatrix->setElement(i, j, cX);
+                    costMatrix->setElement(j, i, cX);
                 }
             }
         }

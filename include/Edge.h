@@ -19,7 +19,7 @@ public:
 
     Edge();
 
-    Edge(Vertex initial, Vertex final, int id, int cost);
+    Edge(Vertex &initial, Vertex &final, int id, int cost);
 
     Vertex getInitial() const;
 

@@ -12,27 +12,28 @@ class Backtracking : public ISolution {
 
 private:
 
-	Tree bestTree;
+	Tree *bestTree;
 
 	int solutions;
 
 	double executionTime;
 
-	CostMatrix costMatrix;
+	CostMatrix *costMatrix;
 
 public:
 
-	Backtracking(CostMatrix &costMatrix);
+	Backtracking(CostMatrix *costMatrix);
+	//Backtracking();
 
 	~Backtracking();
 
 	virtual void findMinimum();
 
-	Tree getBestTree();
+	virtual Tree* getBestTree();
 
-	int getSolutions();
+	virtual int getSolutions();
 
-	double getExecutionTime();
+	virtual double getExecutionTime();
 
 private:
 
@@ -40,7 +41,7 @@ private:
 
 	int initializeLinkVector(Edge link[]);
 
-	void combinations(Edge link[], int length, int size, int startPosition, Tree tree);
+	void combinations(Edge link[], int length, int size, int startPosition, Tree &tree);
 
 };
 
