@@ -5,7 +5,7 @@ Graph::Graph() {
 }
 
 Graph::~Graph() {
-	
+
 }
 
 int Graph::getTotalCost() const {
@@ -56,8 +56,15 @@ void Graph::connect(Vertex &v1, Vertex &v2, int cost) {
 	vertices.push_back(v1);
 	vertices.push_back(v2);
 	Edge e(v1, v2, ++edgeCounter, cost);
+	edges.push_back(e);
 	v1.increaseDegree();
 	v2.increaseDegree();
+}
+
+void Graph::addEdge(Edge e) {
+	edges.push_back(e);
+	e.getInitial().increaseDegree();
+	e.getFinal().increaseDegree();
 }
 
 bool Graph::isCyclic() {
