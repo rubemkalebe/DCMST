@@ -38,10 +38,6 @@ Edge::Edge() {
     cost = 0;
 }
 
-Edge::~Edge() {
-
-}
-
 Edge::Edge(Vertex &initial, Vertex &final, int id, int cost) {
     this->initial = initial;
     this->final = final;

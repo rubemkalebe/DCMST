@@ -13,23 +13,31 @@ class LoadFile {
 
 private:
 
-    std::string path;
+    std::string instancePath;
+
+    std::string resultsPath;
 
     CostMatrix *matrix;
 
 public:
 
-    LoadFile(std::string path);
+    LoadFile(std::string instancePath, std::string resultsPath);
 
-    std::string getPath() const;
+    std::string getInstancePath() const;
 
-    void setPath(const std::string &value);
+    void setInstancePath(const std::string &value);
+
+    std::string getResultsPath() const;
+
+    void setResultsPath(const std::string &value);
 
     void readNetworkInfo();
 
     void readCostMatrix(CostMatrix *costMatrix);
 
-    std::vector<Edge> readEdgesList(std::string resultsPath);
+    std::vector<Edge> readEdgesList();
+
+    int readGraphCost();
 };
 
 #endif // LOADFILE_H

@@ -19,8 +19,6 @@ public:
 
     Edge();
 
-    ~Edge();
-
     Edge(Vertex &initial, Vertex &final, int id, int cost);
 
     Vertex getInitial() const;

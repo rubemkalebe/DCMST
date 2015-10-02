@@ -4,16 +4,15 @@
 #include <vector>
 
 #include "Edge.h"
-#include "Vertex.h"
 #include "UnionFind.h"
 
 class Graph {
 
 private:
 
-	std::vector<Vertex> vertices;
-
 	std::vector<Edge> edges;
+
+	int *degrees;
 
 	int totalCost;
 
@@ -43,11 +42,11 @@ public:
 
 	int getEdgeCounter() const;
 
-	std::vector<Vertex> getVertices() const;
-
-	void setVertices(std::vector<Vertex> vertices);
-
 	std::vector<Edge> getEdges() const;
+
+	void setDegrees(int *v);
+
+	int* getDegrees() const;
 
 	void setEdges(std::vector<Edge> edges);
 
@@ -58,6 +57,12 @@ public:
 	bool isCyclic();
 
 	bool isConnected();
+
+private:
+
+	void increaseDegree(int i);
+
+	void decreaseDegree(int i);
 
 };
 

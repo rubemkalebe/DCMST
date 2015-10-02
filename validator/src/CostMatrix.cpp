@@ -20,10 +20,6 @@ int CostMatrix::size() {
     return _size;
 }
 
-/*CostMatrix::CostMatrix() {
-    std::cout << "Sem parametro\n";
-}*/
-
 CostMatrix::CostMatrix(int n) {
     if(n > 0) {
         this->_size = n;

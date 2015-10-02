@@ -17,7 +17,8 @@ int main(int argc, char **argv) {
 		ISolution *solver = new Backtracking(costMatrix);
 		solver->findMinimum();
 		SaveResults *saver = new SaveResults();
-		saver->writeToFile(solver);
+		saver->writeAllResultsToFile(solver);
+		saver->writeGraphDataToFile(solver);
 		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms" << endl;

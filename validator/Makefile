@@ -15,11 +15,15 @@ OBJ=obj/
 # variavel para pasta 'include/'
 INC=include/
 
-#Main: Main.o CostMatrix.o Backtracking.o
-#	$(CP) $(OBJ)*.o -o Main -g
+Main: Main.o Graph.o Edge.o CostMatrix.o LoadFile.o Validator.o
+	$(CP) $(OBJ)*.o -o Main -g
+#	$(CP) $(OBJ)Main.o -o Main -g
 
-#Main.o: CostMatrix.o LoadFile.o Backtracking.o SaveResults.o
-#	$(CP) $(COPT) -I $(INC) $(SRC)Main.cpp -o $(OBJ)Main.o
+Main.o: CostMatrix.o LoadFile.o Graph.o Validator.o
+	$(CP) $(COPT) -I $(INC) $(SRC)Main.cpp -o $(OBJ)Main.o
+
+Validator.o: Edge.o Graph.o CostMatrix.o
+	$(CP) $(COPT) -I $(INC) $(SRC)Validator.cpp -o $(OBJ)Validator.o -std=c++0x
 
 LoadFile.o: Graph.o CostMatrix.o
 	$(CP) $(COPT) -I $(INC) $(SRC)LoadFile.cpp -o $(OBJ)LoadFile.o

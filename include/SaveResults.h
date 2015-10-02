@@ -7,7 +7,9 @@ class SaveResults {
 
 public:
 
-	void writeToFile(ISolution *solver);
+	void writeAllResultsToFile(ISolution *solver);
+
+	void writeGraphDataToFile(ISolution *solver);
 
 };
 
