@@ -10,7 +10,6 @@ void SaveResults::writeAllResultsToFile(ISolution *solver) {
 	std::ofstream out(filename.c_str());
 	if(out.is_open()) {
 		std::vector<Edge> *edges = solver->getBestTree()->getTree();
-		//std::cout << solver->getBestTree()->totalCost() << "\n";
 		out << "Menor custo: " << solver->getBestTree()->totalCost() << "\n";
 		out << "Árvore de menor custo: ";
 		for(Edge e : *edges) {
@@ -20,7 +19,6 @@ void SaveResults::writeAllResultsToFile(ISolution *solver) {
         out << "Soluções válidas geradas: " << solver->getSolutions() << "\n";
         out << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms";
 		out.close();
-		//delete edges;
 	}
 }
 
@@ -34,6 +32,5 @@ void SaveResults::writeGraphDataToFile(ISolution *solver) {
     	out << e.getInitial().getId() << " " << e.getFinal().getId() << "\n";
     }
 		out.close();
-		//delete edges;
 	}
 }

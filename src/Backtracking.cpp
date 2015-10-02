@@ -1,6 +1,8 @@
 #include "Backtracking.h"
 #include <iostream>
+
 using namespace std;
+
 int Backtracking::edges(int n) {
 	return (n * (n - 1)) / 2;
 }

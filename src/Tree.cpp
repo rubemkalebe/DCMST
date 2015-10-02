@@ -89,11 +89,6 @@ Tree::Tree() {
 Tree::~Tree() {
     delete tree;
     delete [] degree;
-    //delete uf;
-    //uf->destroy();
-    /*if(uf != NULL) {
-        uf = NULL;
-    }*/
 }
 
 bool Tree::addEdge(Edge &e)
@@ -116,7 +111,6 @@ void Tree::removeEdge()
             tree->at(tree->size()-1).getFinal().getId()-1);
     _totalCost -= tree->at(tree->size()-1).getCost();
     tree->pop_back();
-    //uf->destroy();
     delete uf;
     uf = new UnionFind(vertexMax);
     for(Edge e : *tree) {
@@ -136,9 +130,6 @@ void Tree::update(Tree &t)
     for(int i = 0; i < vertexMax; i++) {
         degree[i] = vTemp[i];
     }
-    //delete uf;
-    //uf->destroy();
-    //this->uf = NULL;
     this->uf = t.getUf();
     this->_totalCost = t.totalCost();
 }

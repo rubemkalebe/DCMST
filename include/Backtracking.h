@@ -23,7 +23,6 @@ private:
 public:
 
 	Backtracking(CostMatrix *costMatrix);
-	//Backtracking();
 
 	~Backtracking();
 

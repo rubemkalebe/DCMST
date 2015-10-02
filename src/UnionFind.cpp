@@ -23,20 +23,11 @@ UnionFind::~UnionFind() {
 }
 
 int UnionFind::findSet(int x) {
-    /*while(x != id[x]) {
+    while(x != id[x]) {
         id[x] = id[id[x]];  // Path compression by halving (reduz a altura para metade)
         x = id[x];
     }
-    return x;*/
-    int root = x;
-        while (root != id[root])
-            root = id[root];
-        while (x != root) {
-            int newp = id[x];
-            id[x] = root;
-            x = newp;
-        }
-        return root;
+    return x;
 }
 
 bool UnionFind::sameComponent(int x, int y) {

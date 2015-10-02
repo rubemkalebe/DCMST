@@ -10,8 +10,6 @@ private:
 
 public:
 
-	//CostMatrix();
-
     CostMatrix(int n);
 
     ~CostMatrix();
