@@ -15,8 +15,11 @@ OBJ=obj/
 # variavel para pasta 'include/'
 INC=include/
 
-Main: EuclideanDistance.o Generator.o Main.o
-	$(CP) $(OBJ)EuclideanDistance.o $(OBJ)Generator.o $(OBJ)Main.o -o Main
+Main: EuclideanDistance.o Generator.o Main.o SaveInstance.o
+	$(CP) $(OBJ)EuclideanDistance.o $(OBJ)Generator.o $(OBJ)SaveInstance.o $(OBJ)Main.o -o Main
+
+SaveInstance.o:
+	$(CP) $(COPT) -I $(INC) $(SRC)SaveInstance.cpp -o $(OBJ)SaveInstance.o
 
 Generator.o: EuclideanDistance.o
 		$(CP) $(COPT) -I $(INC) $(SRC)Generator.cpp -o $(OBJ)Generator.o
