@@ -1,12 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <typeinfo>
 #include "Edge.h"
 #include "Tree.h"
 #include "SaveResults.h"
 
 void SaveResults::writeAllResultsToFile(ISolution *solver) {
-	std::string filename = "BestSolution.out";
+	std::string filename = std::string("results/") + typeid(*solver).name() + std::string(".out");
 	std::ofstream out(filename.c_str());
 	if(out.is_open()) {
 		std::vector<Edge> *edges = solver->getBestTree()->getTree();
@@ -23,7 +24,7 @@ void SaveResults::writeAllResultsToFile(ISolution *solver) {
 }
 
 void SaveResults::writeGraphDataToFile(ISolution *solver) {
-	std::string filename = "Graph.out";
+	std::string filename = std::string("results/") + typeid(*solver).name() + std::string("Graph.out");
 	std::ofstream out(filename.c_str());
 	if(out.is_open()) {
 		std::vector<Edge> *edges = solver->getBestTree()->getTree();

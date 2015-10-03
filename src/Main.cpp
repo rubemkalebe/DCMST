@@ -3,6 +3,8 @@
 #include "CostMatrix.h"
 #include "SaveResults.h"
 #include "Backtracking.h"
+#include "OptimizedBacktracking.h"
+#include "OrderedOptimizedBacktracking.h"
 
 using namespace std;
 
@@ -14,15 +16,56 @@ int main(int argc, char **argv) {
 		loader.readNetworkInfo();
 		CostMatrix *costMatrix = new CostMatrix(Tree::getVertexMax());
 		loader.readCostMatrix(costMatrix);
+
 		ISolution *solver = new Backtracking(costMatrix);
 		solver->findMinimum();
 		SaveResults *saver = new SaveResults();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
+		cout << "--Backtracking--" << endl;
 		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
+		cout << "Arvore: ";
+		std::vector<Edge> *edges = solver->getBestTree()->getTree();
+		for(Edge e : *edges) {
+			cout << e.getInitial().getId() << "-" << e.getFinal().getId() << " ";
+		}
+		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms" << endl;
 		cout << "**Fim de execução**" << endl;
+
+		solver = new OptimizedBacktracking(costMatrix);
+		solver->findMinimum();
+		saver->writeAllResultsToFile(solver);
+		saver->writeGraphDataToFile(solver);
+		cout << "\n--Backtracking com otimizacao--" << endl;
+		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
+		cout << "Arvore: ";
+		edges = solver->getBestTree()->getTree();
+		for(Edge e : *edges) {
+			cout << e.getInitial().getId() << "-" << e.getFinal().getId() << " ";
+		}
+		cout << endl;
+		cout << "Soluções válidas: " << solver->getSolutions() << endl;
+		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms" << endl;
+		cout << "**Fim de execução**" << endl;
+
+		solver = new OrderedOptimizedBacktracking(costMatrix);
+		solver->findMinimum();
+		saver->writeAllResultsToFile(solver);
+		saver->writeGraphDataToFile(solver);
+		cout << "\n--Backtracking com otimizacao e ordenacao do espaco de busca--" << endl;
+		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
+		cout << "Arvore: ";
+		edges = solver->getBestTree()->getTree();
+		for(Edge e : *edges) {
+			cout << e.getInitial().getId() << "-" << e.getFinal().getId() << " ";
+		}
+		cout << endl;
+		cout << "Soluções válidas: " << solver->getSolutions() << endl;
+		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms" << endl;
+		cout << "**Fim de execução**" << endl;
+
 		delete costMatrix;
 		delete solver;
 		delete saver;

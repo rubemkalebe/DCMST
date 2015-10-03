@@ -1,0 +1,4 @@
+Menor custo: 46
+Árvore de menor custo: 1-7 2-3 3-6 4-5 5-7 6-7 
+Soluções válidas geradas: 16590
+Tempo total gasto na busca pela solução: 0.013761ms

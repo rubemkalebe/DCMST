@@ -1,13 +1,14 @@
-#include "Backtracking.h"
+#include "OrderedOptimizedBacktracking.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-int Backtracking::edges(int n) {
+int OrderedOptimizedBacktracking::edges(int n) {
 	return (n * (n - 1)) / 2;
 }
 
-int Backtracking::initializeLinkVector(Edge link[]) {
+int OrderedOptimizedBacktracking::initializeLinkVector(Edge link[]) {
 	int countEdges = 0; // Índice da aresta
 	for(int i = 0; i < Tree::getVertexMax(); i++) {
 		for(int j = i; j < Tree::getVertexMax(); j++) {
@@ -22,7 +23,7 @@ int Backtracking::initializeLinkVector(Edge link[]) {
 	return countEdges;
 }
 
-void Backtracking::combinations(Edge link[], int length, int size, int startPosition, Tree &tree) {
+void OrderedOptimizedBacktracking::combinations(Edge link[], int length, int size, int startPosition, Tree &tree) {
 	if(size == 0) {
 		if((solutions == 0) || (tree.totalCost() < bestTree->totalCost())) {
 			bestTree->update(tree);
@@ -31,7 +32,7 @@ void Backtracking::combinations(Edge link[], int length, int size, int startPosi
 		return;
 	}
 	for(int i = startPosition; i <= length - size; i++) {
-		if(tree.addEdge(link[i])) {
+		if((solutions == 0 || tree.totalCost() + link[i].getCost() < bestTree->totalCost()) && tree.addEdge(link[i])) {
 			combinations(link, length, size-1, i+1, tree);
 			tree.removeEdge();
 		} else {
@@ -41,36 +42,41 @@ void Backtracking::combinations(Edge link[], int length, int size, int startPosi
 	}
 }
 
-Backtracking::Backtracking(CostMatrix *costMatrix) {
+OrderedOptimizedBacktracking::OrderedOptimizedBacktracking(CostMatrix *costMatrix) {
 	solutions = 0;
 	executionTime = 0;
 	this->costMatrix = costMatrix;
 	bestTree = new Tree();
 }
 
-Backtracking::~Backtracking() {
+OrderedOptimizedBacktracking::~OrderedOptimizedBacktracking() {
 	delete bestTree;
 }
 
-void Backtracking::findMinimum() {
+bool comp(const Edge &e1, const Edge &e2) {
+	return e1.getCost() < e2.getCost();
+}
+
+void OrderedOptimizedBacktracking::findMinimum() {
 	Edge link[edges(Tree::getVertexMax())]; // Número de rotas possíveis
 													// equivalente ao somatório de 1...n
 	Tree tree;
 	int length = initializeLinkVector(link);
+	std::sort(link, link+edges(Tree::getVertexMax()), comp);
 	Chronometer::start();
 	combinations(link, length, Tree::getVertexMax()-1, 0, tree); // Computa as combinações de arestas possíveis
 	Chronometer::stop();
 	executionTime = Chronometer::elapsedTime();
 }
 
-Tree* Backtracking::getBestTree() {
+Tree* OrderedOptimizedBacktracking::getBestTree() {
 	return bestTree;
 }
 
-int Backtracking::getSolutions() {
+int OrderedOptimizedBacktracking::getSolutions() {
 	return solutions;
 }
 
-double Backtracking::getExecutionTime() {
+double OrderedOptimizedBacktracking::getExecutionTime() {
 	return executionTime;
 }
