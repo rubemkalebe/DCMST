@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 		}
 		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
-		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms" << endl;
+		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;
 
 		solver = new OptimizedBacktracking(costMatrix);
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 		}
 		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
-		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms" << endl;
+		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;
 
 		solver = new OrderedOptimizedBacktracking(costMatrix);
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 		}
 		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
-		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms" << endl;
+		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;
 
 		delete costMatrix;

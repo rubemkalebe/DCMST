@@ -18,7 +18,7 @@ void SaveResults::writeAllResultsToFile(ISolution *solver) {
         }
         out << "\n";
         out << "Soluções válidas geradas: " << solver->getSolutions() << "\n";
-        out << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "ms";
+        out << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s";
 		out.close();
 	}
 }
