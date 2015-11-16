@@ -59,6 +59,8 @@ public:
 
     static void setDegreeMax(int value);
 
+    void reset();
+
 private:
 
     void increaseDegree(int i, int j);

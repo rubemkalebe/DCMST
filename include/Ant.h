@@ -11,9 +11,9 @@ class Ant {
 
 private:
 
-  Tree *t;
+  Tree t;
 
-  int *visited;
+  bool *(_visited);
 
   int graphSize;
 
@@ -29,7 +29,7 @@ public:
 
   void reset();
 
-  Tree* getTree();
+  Tree getTree();
 
   int getSolutionCost();
 

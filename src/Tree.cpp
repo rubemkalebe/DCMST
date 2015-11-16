@@ -134,6 +134,16 @@ void Tree::update(Tree &t)
     this->_totalCost = t.totalCost();
 }
 
+void Tree::reset() {
+  tree = new std::vector<Edge>();
+  degree = new int[vertexMax];
+  for(int i = 0; i < vertexMax; i++) {
+      degree[i] = 0;
+  }
+  uf = new UnionFind(vertexMax);
+  _totalCost = 0;
+}
+
 int Tree::getDegree(int id) const {
     return degree[id-1];
 }

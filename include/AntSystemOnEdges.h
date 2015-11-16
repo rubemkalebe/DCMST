@@ -11,6 +11,9 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <vector>
+
+using std::vector;
 
 class AntSystemOnEdges : public ISolution {
 
@@ -22,9 +25,23 @@ private:
 
 	CostMatrix *costMatrix;
 
+	int size;
+
 	int numAnts;
 
-	Ant *ants;
+	vector<Ant> ants;
+
+	const int maxIterations = 2000;
+
+	const double initialPheromone = 1.0;
+
+	const double evaporationRate = 0.5;
+
+	const double Q = 500.0;
+
+	const double numAntFactor = 0.8;
+
+  double *trails;
 
 public:
 
@@ -40,9 +57,9 @@ public:
 
 private:
 
-	void setupAnts(Link link[], int length);
+	void setupAnts(Edge link[], int length);
 
-	void moveAnts();
+	void moveAnts(Edge link[]);
 
 	void updateTrails();
 

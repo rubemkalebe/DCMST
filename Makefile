@@ -18,8 +18,11 @@ INC=include/
 Main: Main.o CostMatrix.o Backtracking.o
 	$(CP) $(OBJ)*.o -o Main -g
 
-Main.o: CostMatrix.o LoadFile.o Backtracking.o SaveResults.o OptimizedBacktracking.o OrderedOptimizedBacktracking.o
+Main.o: CostMatrix.o LoadFile.o Backtracking.o SaveResults.o OptimizedBacktracking.o OrderedOptimizedBacktracking.o AntSystemOnEdges.o
 	$(CP) $(COPT) -I $(INC) $(SRC)Main.cpp -o $(OBJ)Main.o -std=c++0x
+
+AntSystemOnEdges.o: Vertex.o Edge.o CostMatrix.o Tree.o Chronometer.o Ant.o
+	$(CP) $(COPT) -I $(INC) $(SRC)AntSystemOnEdges.cpp -o $(OBJ)AntSystemOnEdges.o -std=c++0x
 
 OptimizedBacktracking.o: Vertex.o Edge.o CostMatrix.o Tree.o Chronometer.o
 	$(CP) $(COPT) -I $(INC) $(SRC)OptimizedBacktracking.cpp -o $(OBJ)OptimizedBacktracking.o
@@ -35,6 +38,9 @@ SaveResults.o: Edge.o Tree.o
 
 LoadFile.o: CostMatrix.o Tree.o
 	$(CP) $(COPT) -I $(INC) $(SRC)LoadFile.cpp -o $(OBJ)LoadFile.o
+
+Ant.o: Tree.o
+	$(CP) $(COPT) -I $(INC) $(SRC)Ant.cpp -o $(OBJ)Ant.o
 
 Tree.o: Edge.o UnionFind.o
 	$(CP) $(COPT) -I $(INC) $(SRC)Tree.cpp -o $(OBJ)Tree.o -std=c++0x
