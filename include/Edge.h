@@ -36,6 +36,7 @@ public:
     int getCost() const;
 
     void setCost(int value);
+    
 };
 
 #endif // EDGE_H

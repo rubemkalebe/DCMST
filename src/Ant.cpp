@@ -31,7 +31,7 @@ void Ant::reset() {
   }
 }
 
-Tree Ant::getTree() {
+Tree& Ant::getTree() {
   return t;
 }
 

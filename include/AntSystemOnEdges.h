@@ -8,6 +8,7 @@
 #include "CostMatrix.h"
 #include "Chronometer.h"
 #include "ISolution.h"
+#include "Util.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -26,6 +27,8 @@ private:
 	CostMatrix *costMatrix;
 
 	int size;
+
+	int solutions;
 
 	int numAnts;
 
@@ -52,6 +55,8 @@ public:
 	virtual void findMinimum();
 
 	virtual Tree* getBestTree();
+
+	virtual int getSolutions();
 
 	virtual double getExecutionTime();
 

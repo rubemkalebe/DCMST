@@ -6,6 +6,7 @@ using namespace std;
 
 AntSystemOnEdges::AntSystemOnEdges(CostMatrix *costMatrix) {
 	executionTime = 0.0;
+	solutions = 0;
 	this->costMatrix = costMatrix;
 	bestTree = new Tree();
 	this->size = this->costMatrix->size();
@@ -31,10 +32,6 @@ double AntSystemOnEdges::getExecutionTime() {
 	return executionTime;
 }
 
-bool comp(const Edge &e1, const Edge &e2) {
-	return e1.getCost() < e2.getCost();
-}
-
 int AntSystemOnEdges::edges(int n) {
 	return (n * (n - 1)) / 2;
 }
@@ -53,6 +50,10 @@ int AntSystemOnEdges::initializeLinkVector(Edge link[]) {
 	}
 	return countEdges;
 }
+
+/*bool comp(const Edge &e1, const Edge &e2) {
+	return e1.getCost() < e2.getCost();
+}*/
 
 void AntSystemOnEdges::findMinimum() {
 	Edge link[edges(Tree::getVertexMax())]; // Número de rotas possíveis
@@ -83,7 +84,7 @@ void AntSystemOnEdges::setupAnts(Edge link[], int length) {
 	}
 }
 
-unsigned int nextRandom(int length) {
+unsigned int AntSystemOnEdges::nextRandom(int length) {
 	return rand() % length;
 }
 
@@ -122,10 +123,12 @@ void AntSystemOnEdges::updateTrails() {
 
 void AntSystemOnEdges::updateBest() {
 	if(bestTree->totalCost() == 0) {
+		solutions++;
 		bestTree->update(ants[0].getTree());
 	}
 	for(int i = 0; i < numAnts; i++) {
 		if(ants[i].getSolutionCost() < bestTree->totalCost()) {
+			solutions++;
 			bestTree->update(ants[i].getTree());
 		}
 	}
@@ -136,4 +139,8 @@ void AntSystemOnEdges::clearTrails() {
 	for(int i = 0; i < n; i++) {
 		trails[i] = initialPheromone;
 	}
+}
+
+int AntSystemOnEdges::getSolutions() {
+	return solutions;
 }

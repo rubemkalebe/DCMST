@@ -7,6 +7,7 @@
 #include "CostMatrix.h"
 #include "Chronometer.h"
 #include "ISolution.h"
+#include "Util.h"
 
 class OrderedOptimizedBacktracking : public ISolution {
 

@@ -53,10 +53,6 @@ OrderedOptimizedBacktracking::~OrderedOptimizedBacktracking() {
 	delete bestTree;
 }
 
-bool comp(const Edge &e1, const Edge &e2) {
-	return e1.getCost() < e2.getCost();
-}
-
 void OrderedOptimizedBacktracking::findMinimum() {
 	Edge link[edges(Tree::getVertexMax())]; // Número de rotas possíveis
 													// equivalente ao somatório de 1...n
