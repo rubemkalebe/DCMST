@@ -11,7 +11,7 @@ Ant::Ant(int graphSize) {
 }
 
 Ant::~Ant() {
-  delete _visited;
+  delete [] _visited;
 }
 
 bool Ant::visit(Edge e) {

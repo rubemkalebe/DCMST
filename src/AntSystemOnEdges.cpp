@@ -9,21 +9,26 @@ AntSystemOnEdges::AntSystemOnEdges(CostMatrix *costMatrix) {
 	executionTime = 0.0;
 	solutions = 0;
 	this->costMatrix = costMatrix;
+	this->numVertices = this->costMatrix->size();
+	this->numAnts = (int) this->numVertices * numAntFactor;
+	this->numPossibleEdges = summation(numVertices);
 	bestTree = new Tree();
-	this->size = this->costMatrix->size();
-	this->numAnts = (int) this->size * numAntFactor;
-	int n = ((size * (size - 1)) / 2);
-	trails = new double[n];
-	probs = new double[n];
+	trails = new double[numPossibleEdges];
+	probs = new double[numPossibleEdges];
+	Ant *a;
 	for(int i = 0; i < numAnts; i++) {
-		Ant *a = new Ant(size);
+		a = new Ant(numVertices);
 		ants.push_back(a);
 	}
 }
 
 AntSystemOnEdges::~AntSystemOnEdges() {
 	delete bestTree;
-	delete trails;
+	delete [] trails;
+	delete [] probs;
+	for(int i = 0; i < numAnts; i++) {
+		delete ants[i];
+	}
 }
 
 Tree* AntSystemOnEdges::getBestTree() {
@@ -34,14 +39,10 @@ double AntSystemOnEdges::getExecutionTime() {
 	return executionTime;
 }
 
-int AntSystemOnEdges::edges(int n) {
-	return (n * (n - 1)) / 2;
-}
-
 int AntSystemOnEdges::initializeLinkVector(Edge link[]) {
 	int countEdges = 0; // Índice da aresta
-	for(int i = 0; i < Tree::getVertexMax(); i++) {
-		for(int j = i; j < Tree::getVertexMax(); j++) {
+	for(int i = 0; i < numVertices; i++) {
+		for(int j = i; j < numVertices; j++) {
 			if(i != j) {
 				Vertex v1(i+1);
 				Vertex v2(j+1);
@@ -54,12 +55,9 @@ int AntSystemOnEdges::initializeLinkVector(Edge link[]) {
 }
 
 void AntSystemOnEdges::findMinimum() {
-	Edge link[edges(Tree::getVertexMax())]; // Número de rotas possíveis
-													// equivalente ao somatório de 1...n
+	Edge link[numPossibleEdges];
 	Tree tree;
 	int length = initializeLinkVector(link);
-	std::sort(link, link+edges(Tree::getVertexMax()), comp);
-	//srand((unsigned int) time(NULL));
 	Chronometer::start();
 
 	// solve
@@ -86,10 +84,7 @@ void AntSystemOnEdges::setupAnts(Edge link[], int length) {
 }
 
 unsigned int AntSystemOnEdges::nextInt(int length) {
-	//return random() % length;
-	int x = random() % length;
-	//cout << "rand: " << x << endl;
-	return x;
+	return random() % length;
 }
 
 double AntSystemOnEdges::nextDouble() {
@@ -98,22 +93,14 @@ double AntSystemOnEdges::nextDouble() {
 
 void AntSystemOnEdges::moveAnts(Edge link[]) {
 	int currentIndex = 1;
-	while(currentIndex < size - 1) { // numAnts armazena |V| e 1 aresta ja foi inserida
+	while(currentIndex < numVertices - 1) { // numAnts armazena |V| e 1 aresta ja foi inserida
 		//cout << endl;
 		for(int i = 0; i < numAnts; i++) {
 			//cout << "Move--Ant" << (i+1) << endl;
-				int next;
-				/*do {
-					while((next = selectNext(ants[i], link)) && !(next > -1))
-						;
-					//cout << "next: " << next << endl;
-					//cin.get();
-				} while(!ants[i]->visit(link[next]));*/
-				next = selectNext(ants[i], link);
-				int n = edges(size);
+				int next = selectNext(ants[i], link);
 				while(!ants[i]->visit(link[next])) {
 					next += 1;
-					next %= n;
+					next %= numPossibleEdges;
 				}
 		}
 		currentIndex++;
@@ -121,61 +108,51 @@ void AntSystemOnEdges::moveAnts(Edge link[]) {
 }
 
 int AntSystemOnEdges::selectNext(Ant *a, Edge link[]) {
-	//cout << "func\n";
 	if(nextDouble() < pr) {
-		//cout << "rand\n";
-		int n = edges(size);
 		int next;
 		do {
-			next = nextInt(n);
+			next = nextInt(numPossibleEdges);
 		} while(a->visited(next));
 		return next;
 	}
 
 	probTo(a, link);
 	double r = nextDouble();
-	//cout << "r: " << r << endl;
-	int n = edges(size);
 	double total = 0.0;
-	for(int i = 0; i < n; i++) {
+	for(int i = 0; i < numPossibleEdges; i++) {
 		total += probs[i];
 		if(total >= r) {
 			return i;
 		}
 	}
-	return -1;
+	return 0; // nao eh pra chegar aqui, mas...
 }
 
 void AntSystemOnEdges::probTo(Ant *a, Edge link[]) {
-	int n = edges(size);
-	//int i = a->getTree().getTree()->back().getId();
-
 	double denom = 0.0;
-	for(int j = 0; j < n; j++) {
+	for(int j = 0; j < numPossibleEdges; j++) {
 		if(!a->visited(j)) {
-			denom += pow(trails[j], alpha) * pow(1.0 / link[j].getCost(), beta);
+			denom += fastPow(trails[j], alpha) * fastPow(1.0 / link[j].getCost(), beta);
 		}
 	}
 
-	for(int j = 0; j < n; j++) {
+	for(int j = 0; j < numPossibleEdges; j++) {
 		if(a->visited(j)) {
 			probs[j] = 0.0;
 		} else {
-			double numerator = pow(trails[j], alpha) * pow(1.0 / link[j].getCost(), beta);
+			double numerator = fastPow(trails[j], alpha) * fastPow(1.0 / link[j].getCost(), beta);
 			probs[j] = numerator / denom;
 		}
 	}
 }
 
 void AntSystemOnEdges::updateTrails() {
-	int n = edges(size);
-
 	// evaporation
-	for(int i = 0; i < n; i++) {
+	for(int i = 0; i < numPossibleEdges; i++) {
 		trails[i] *= evaporationRate;
 	}
 
-	// each ants contribution
+	// each ant contribution
 	for(int i = 0; i < numAnts; i++) {
 		double contribution = Q / ants[i]->getSolutionCost();
 		std::vector<Edge>* edges = ants[i]->getTree().getTree();
@@ -191,14 +168,6 @@ void AntSystemOnEdges::updateBest() {
 		bestTree->update(ants[0]->getTree());
 	}
 	for(int i = 0; i < numAnts; i++) {
-		/*cout << endl;
-		std::vector<Edge>* edges = ants[i]->getTree().getTree();
-		cout << "Ant" << (i+1) << endl;
-		for(Edge e : *edges) {
-			cout << "Show-Edge: " << e.getInitial().getId() << " " << e.getFinal().getId() << endl;
-		}*/
-
-
 		if(ants[i]->getSolutionCost() < bestTree->totalCost()) {
 			solutions++;
 			bestTree->update(ants[i]->getTree());
@@ -207,8 +176,7 @@ void AntSystemOnEdges::updateBest() {
 }
 
 void AntSystemOnEdges::clearTrails() {
-	int n = edges(size);
-	for(int i = 0; i < n; i++) {
+	for(int i = 0; i < numPossibleEdges; i++) {
 		trails[i] = initialPheromone;
 	}
 }

@@ -26,7 +26,9 @@ private:
 
 	CostMatrix *costMatrix;
 
-	int size;
+	int numVertices;
+
+	int numPossibleEdges;
 
 	int solutions;
 
@@ -34,19 +36,19 @@ private:
 
 	vector<Ant*> ants;
 
-	const int maxIterations = 500;//2000;
+	const int maxIterations = 300;
 
 	const double alpha = 1.0;
 
 	const double beta = 5.0;
 
-	const double initialPheromone = 1.0;
+	const double initialPheromone = 5.0;
 
-	const double evaporationRate = 0.5;
+	const double evaporationRate = 0.7;
 
 	const double Q = 500.0;
 
-	const double numAntFactor = 0.7;
+	const double numAntFactor = 1.0;
 
 	const double pr = 0.1;
 

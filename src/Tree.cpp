@@ -135,6 +135,9 @@ void Tree::update(Tree &t)
 }
 
 void Tree::reset() {
+  delete tree;
+  delete [] degree;
+  delete uf;
   tree = new std::vector<Edge>();
   degree = new int[vertexMax];
   for(int i = 0; i < vertexMax; i++) {
