@@ -32,9 +32,13 @@ private:
 
 	int numAnts;
 
-	vector<Ant> ants;
+	vector<Ant*> ants;
 
-	const int maxIterations = 2000;
+	const int maxIterations = 100;//2000;
+
+	const double alpha = 1.0;
+
+	const double beta = 5.0;
 
 	const double initialPheromone = 1.0;
 
@@ -45,6 +49,8 @@ private:
 	const double numAntFactor = 0.8;
 
   double *trails;
+
+	double *probs;
 
 public:
 
@@ -76,9 +82,13 @@ private:
 
 	void clearTrails();
 
-	unsigned int nextRandom(int length);
+	unsigned int nextInt(int length);
 
-	int selectNext();
+	double nextDouble();
+
+	int selectNext(Ant *a, Edge link[]);
+
+	void probTo(Ant *a, Edge link[]);
 
 };
 

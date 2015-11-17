@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 		CostMatrix *costMatrix = new CostMatrix(Tree::getVertexMax());
 		loader.readCostMatrix(costMatrix);
 
-		/*ISolution *solver = new Backtracking(costMatrix);
+		ISolution *solver = new Backtracking(costMatrix);
 		solver->findMinimum();
 		SaveResults *saver = new SaveResults();
 		saver->writeAllResultsToFile(solver);
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;
 
-		solver = new OptimizedBacktracking(costMatrix);
+		/*solver = new OptimizedBacktracking(costMatrix);
 		solver->findMinimum();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
@@ -67,15 +67,15 @@ int main(int argc, char **argv) {
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;*/
 
-		ISolution *solver = new AntSystemOnEdges(costMatrix);
+		solver = new AntSystemOnEdges(costMatrix);
 		solver->findMinimum();
-		SaveResults *saver = new SaveResults();
+		saver = new SaveResults();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
 		cout << "--Ant system--" << endl;
 		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
 		cout << "Arvore: ";
-		std::vector<Edge> *edges = solver->getBestTree()->getTree();
+		edges = solver->getBestTree()->getTree();
 		for(Edge e : *edges) {
 			cout << e.getInitial().getId() << "-" << e.getFinal().getId() << " ";
 		}

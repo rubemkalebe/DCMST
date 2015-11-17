@@ -1,4 +1,8 @@
 #include "Ant.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 Ant::Ant(int graphSize) {
     this->graphSize = graphSize;
@@ -12,6 +16,7 @@ Ant::~Ant() {
 
 bool Ant::visit(Edge e) {
   if(t.addEdge(e)) {
+    //cout << "Visit--Edge: " << e.getInitial().getId() << " " << e.getFinal().getId() << endl;
     _visited[e.getId()] = true;
     return true;
   } else {
