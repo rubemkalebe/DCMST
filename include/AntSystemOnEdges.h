@@ -34,7 +34,7 @@ private:
 
 	vector<Ant*> ants;
 
-	const int maxIterations = 100;//2000;
+	const int maxIterations = 500;//2000;
 
 	const double alpha = 1.0;
 
@@ -46,7 +46,9 @@ private:
 
 	const double Q = 500.0;
 
-	const double numAntFactor = 0.8;
+	const double numAntFactor = 0.7;
+
+	const double pr = 0.1;
 
   double *trails;
 

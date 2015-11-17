@@ -88,7 +88,7 @@ void AntSystemOnEdges::setupAnts(Edge link[], int length) {
 unsigned int AntSystemOnEdges::nextInt(int length) {
 	//return random() % length;
 	int x = random() % length;
-	cout << "rand: " << x << endl;
+	//cout << "rand: " << x << endl;
 	return x;
 }
 
@@ -103,20 +103,38 @@ void AntSystemOnEdges::moveAnts(Edge link[]) {
 		for(int i = 0; i < numAnts; i++) {
 			//cout << "Move--Ant" << (i+1) << endl;
 				int next;
-				do {
-					while((next = selectNext(ants[i], link)) && !(next > -1)) {
-						cout << "next: " << next << endl;
-					}
+				/*do {
+					while((next = selectNext(ants[i], link)) && !(next > -1))
+						;
 					//cout << "next: " << next << endl;
-				} while(!ants[i]->visit(link[next]));
+					//cin.get();
+				} while(!ants[i]->visit(link[next]));*/
+				next = selectNext(ants[i], link);
+				int n = edges(size);
+				while(!ants[i]->visit(link[next])) {
+					next += 1;
+					next %= n;
+				}
 		}
 		currentIndex++;
 	}
 }
 
 int AntSystemOnEdges::selectNext(Ant *a, Edge link[]) {
+	//cout << "func\n";
+	if(nextDouble() < pr) {
+		//cout << "rand\n";
+		int n = edges(size);
+		int next;
+		do {
+			next = nextInt(n);
+		} while(a->visited(next));
+		return next;
+	}
+
 	probTo(a, link);
 	double r = nextDouble();
+	//cout << "r: " << r << endl;
 	int n = edges(size);
 	double total = 0.0;
 	for(int i = 0; i < n; i++) {
