@@ -18,8 +18,11 @@ INC=include/
 Main: Main.o CostMatrix.o Backtracking.o
 	$(CP) $(OBJ)*.o -o Main -g
 
-Main.o: CostMatrix.o LoadFile.o Backtracking.o SaveResults.o OptimizedBacktracking.o OrderedOptimizedBacktracking.o AntSystemOnEdges.o
+Main.o: CostMatrix.o LoadFile.o Backtracking.o SaveResults.o OptimizedBacktracking.o OrderedOptimizedBacktracking.o AntSystemOnEdges.o Heuristic.o
 	$(CP) $(COPT) -I $(INC) $(SRC)Main.cpp -o $(OBJ)Main.o -std=c++0x
+
+Heuristic.o: Vertex.o Edge.o CostMatrix.o Tree.o Chronometer.o Util.o
+	$(CP) $(COPT) -I $(INC) $(SRC)Heuristic.cpp -o $(OBJ)Heuristic.o -std=c++0x
 
 AntSystemOnEdges.o: Vertex.o Edge.o CostMatrix.o Tree.o Chronometer.o Ant.o Util.o
 	$(CP) $(COPT) -I $(INC) $(SRC)AntSystemOnEdges.cpp -o $(OBJ)AntSystemOnEdges.o -std=c++0x
