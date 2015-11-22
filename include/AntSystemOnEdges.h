@@ -44,7 +44,7 @@ private:
 
 	const double initialPheromone = 5.0;
 
-	const double evaporationRate = 0.7;
+	const double evaporationRate = 0.5;
 
 	const double Q = 500.0;
 

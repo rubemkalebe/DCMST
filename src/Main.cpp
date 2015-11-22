@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 		SaveResults *saver = new SaveResults();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
-		cout << "--Ant system--" << endl;
+		cout << "--Algoritmo heurístico--" << endl;
 		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
 		cout << "Arvore: ";
 		std::vector<Edge> *edges = solver->getBestTree()->getTree();
@@ -84,6 +84,22 @@ int main(int argc, char **argv) {
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;
+
+		solver = new AntSystemOnEdges(costMatrix);
+		solver->findMinimum();
+		saver->writeAllResultsToFile(solver);
+		saver->writeGraphDataToFile(solver);
+		cout << "\n--Ant system--" << endl;
+		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
+		cout << "Arvore: ";
+		edges = solver->getBestTree()->getTree();
+		for(Edge e : *edges) {
+			cout << e.getInitial().getId() << "-" << e.getFinal().getId() << " ";
+		}
+		cout << endl;
+		cout << "Soluções válidas: " << solver->getSolutions() << endl;
+		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
+		cout << "**Fim de execução**\n" << endl;
 
 		/*ISolution *solver = new OptimizedBacktracking(costMatrix); //OptimizedBacktracking
 		solver->findMinimum();

@@ -58,6 +58,7 @@ void AntSystemOnEdges::findMinimum() {
 	Edge link[numPossibleEdges];
 	Tree tree;
 	int length = initializeLinkVector(link);
+	std::sort(link, link+numPossibleEdges, comp);
 	Chronometer::start();
 
 	// solve
