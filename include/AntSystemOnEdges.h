@@ -48,7 +48,7 @@ private:
 
 	const double Q = 500.0;
 
-	const double numAntFactor = 1.0;
+	const double numAntFactor = 0.8;
 
 	const double pr = 0.1;
 

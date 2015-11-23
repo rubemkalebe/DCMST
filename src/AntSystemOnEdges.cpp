@@ -10,8 +10,8 @@ AntSystemOnEdges::AntSystemOnEdges(CostMatrix *costMatrix) {
 	solutions = 0;
 	this->costMatrix = costMatrix;
 	this->numVertices = this->costMatrix->size();
-	this->numAnts = (int) this->numVertices * numAntFactor;
 	this->numPossibleEdges = summation(numVertices);
+	this->numAnts = (int) this->numVertices * numAntFactor;
 	bestTree = new Tree();
 	trails = new double[numPossibleEdges];
 	probs = new double[numPossibleEdges];

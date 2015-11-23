@@ -21,9 +21,9 @@ private:
 
 	CostMatrix *costMatrix;
 
-	int escape; // Apos quantas iteracoes parar de executar -- parametro varia em relacao ao numero de vertices
+	unsigned long int escape; // Apos quantas iteracoes parar de executar -- parametro varia em relacao ao numero de vertices
 
-	int iterationsWithoutChange; // Numero de iteracoes sem gerar uma solucao
+	unsigned long int iterationsWithoutChange; // Numero de iteracoes sem gerar uma solucao
 
 public:
 
