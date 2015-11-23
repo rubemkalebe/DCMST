@@ -30,7 +30,9 @@ public:
 
   void generatePoints();
 
-  int** generateDistances();
+  int** generateEuclideanDistances();
+
+  int** generateNonEuclideanDistances();
 
 };
 

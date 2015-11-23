@@ -5,6 +5,13 @@
 
 using namespace std;
 
+void freeMemory(int **dd, int size) {
+  for(int i = 0; i < size; i++) {
+    delete [] dd[i];
+  }
+  delete [] dd;
+}
+
 int main(int argc, char **argv) {
 
   int n, d;
@@ -18,17 +25,15 @@ int main(int argc, char **argv) {
   }
 
   Generator g(n);
-  g.generatePoints();
-  int **dd = g.generateDistances();
-
   SaveInstance s;
-  s.save(dd, n, d, g);
 
-  for(int i = 0; i < g.size(); i++) {
-    delete [] dd[i];
-  }
+  int **dd = g.generateEuclideanDistances();
+  s.save("[EUC]", dd, n, d, g);
+  freeMemory(dd, g.size());
 
-  delete [] dd;
+  dd = g.generateNonEuclideanDistances();
+  s.save("[NEU]", dd, n, d, g);
+  freeMemory(dd, g.size());
 
   return 0;
 }
