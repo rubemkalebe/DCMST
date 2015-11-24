@@ -68,38 +68,28 @@ int main(int argc, char **argv) {
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;*/
 
-		ISolution *solver = new Heuristic(costMatrix);
+		//cout << path << endl;
+
+		ISolution *solver = new AntSystemOnEdges(costMatrix);
 		solver->findMinimum();
-		SaveResults *saver = new SaveResults();
-		saver->writeAllResultsToFile(solver);
-		saver->writeGraphDataToFile(solver);
-		cout << "--Algoritmo heurístico--" << endl;
-		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
-		cout << "Arvore: ";
-		std::vector<Edge> *edges = solver->getBestTree()->getTree();
-		for(Edge e : *edges) {
-			cout << e.getInitial().getId() << "-" << e.getFinal().getId() << " ";
-		}
-		cout << endl;
-		cout << "Soluções válidas: " << solver->getSolutions() << endl;
-		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
-		cout << "**Fim de execução**" << endl;
+		//cout << "BackOtimizado\t";
+		cout << solver->getBestTree()->totalCost() << "\t";
+		cout << fixed << solver->getExecutionTime() << endl;
+		//cout << "\n";
+
+		/*solver = new Heuristic(costMatrix);
+		solver->findMinimum();
+		cout << "Heuristico\t";
+		cout << solver->getBestTree()->totalCost() << "\t";
+		cout << fixed << FormatWithCommas(solver->getExecutionTime()) << endl;
+		//cout << "\n";
 
 		solver = new AntSystemOnEdges(costMatrix);
 		solver->findMinimum();
-		saver->writeAllResultsToFile(solver);
-		saver->writeGraphDataToFile(solver);
-		cout << "\n--Ant system--" << endl;
-		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
-		cout << "Arvore: ";
-		edges = solver->getBestTree()->getTree();
-		for(Edge e : *edges) {
-			cout << e.getInitial().getId() << "-" << e.getFinal().getId() << " ";
-		}
-		cout << endl;
-		cout << "Soluções válidas: " << solver->getSolutions() << endl;
-		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
-		cout << "**Fim de execução**\n" << endl;
+		cout << "AntSystem\t";
+		cout << solver->getBestTree()->totalCost() << "\t";
+		cout << fixed << FormatWithCommas(solver->getExecutionTime()) << endl;
+		cout << "\n";*/
 
 		/*ISolution *solver = new OptimizedBacktracking(costMatrix); //OptimizedBacktracking
 		solver->findMinimum();
@@ -152,7 +142,7 @@ int main(int argc, char **argv) {
 
 		delete costMatrix;
 		delete solver;
-		delete saver;
+		//delete saver;
 	} else {
 		cout << "Essa versão só funciona a partir da leitura de um arquivo! " <<
 				"Caso não tenha um arquivo, você pode enviar algum arquivo de teste padrão " <<

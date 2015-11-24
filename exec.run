@@ -1,5 +1,6 @@
-for ((i=1; i<=30; i++)); 
+for ((i=1; i<=30; i++));
 do
-	./Main $1
+	./Main $1 > output.out
 	sleep .2
 done
+./calc output.out
