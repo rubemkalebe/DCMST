@@ -1,6 +1,8 @@
+# Script para executar o programa 30 vezes
+# Recebe o caminho para a instancia como parametro
+
 for ((i=1; i<=30; i++));
 do
-	./Main $1 > output.out
+	./Main $1
 	sleep .2
 done
-./calc output.out

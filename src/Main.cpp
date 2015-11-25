@@ -68,35 +68,12 @@ int main(int argc, char **argv) {
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**" << endl;*/
 
-		//cout << path << endl;
-
-		ISolution *solver = new AntSystemOnEdges(costMatrix);
-		solver->findMinimum();
-		//cout << "BackOtimizado\t";
-		cout << solver->getBestTree()->totalCost() << "\t";
-		cout << fixed << solver->getExecutionTime() << endl;
-		//cout << "\n";
-
-		/*solver = new Heuristic(costMatrix);
-		solver->findMinimum();
-		cout << "Heuristico\t";
-		cout << solver->getBestTree()->totalCost() << "\t";
-		cout << fixed << FormatWithCommas(solver->getExecutionTime()) << endl;
-		//cout << "\n";
-
-		solver = new AntSystemOnEdges(costMatrix);
-		solver->findMinimum();
-		cout << "AntSystem\t";
-		cout << solver->getBestTree()->totalCost() << "\t";
-		cout << fixed << FormatWithCommas(solver->getExecutionTime()) << endl;
-		cout << "\n";*/
-
-		/*ISolution *solver = new OptimizedBacktracking(costMatrix); //OptimizedBacktracking
+		ISolution *solver = new Heuristic(costMatrix);
 		solver->findMinimum();
 		SaveResults *saver = new SaveResults();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
-		cout << "--Backtracking--" << endl;
+		cout << "--Algoritmo heurístico--" << endl;
 		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
 		cout << "Arvore: ";
 		std::vector<Edge> *edges = solver->getBestTree()->getTree();
@@ -106,13 +83,13 @@ int main(int argc, char **argv) {
 		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
-		cout << "**Fim de execução**" << endl;*/
+		cout << "**Fim de execução**" << endl;
 
-		/*solver = new Heuristic(costMatrix);
+		solver = new AntSystemOnEdges(costMatrix);
 		solver->findMinimum();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
-		cout << "\n--Algoritmo heurístico--" << endl;
+		cout << "\n--Ant System--" << endl;
 		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
 		cout << "Arvore: ";
 		edges = solver->getBestTree()->getTree();
@@ -122,13 +99,13 @@ int main(int argc, char **argv) {
 		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
-		cout << "**Fim de execução**\n" << endl;*/
+		cout << "**Fim de execução**\n" << endl;
 
-		/*solver = new OptimizedBacktracking(costMatrix);
+		solver = new OptimizedBacktracking(costMatrix);
 		solver->findMinimum();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
-		cout << "\n--Backtracking com otimizacao--" << endl;
+		cout << "\n--Backtracking--" << endl;
 		cout << "Menor custo: " << solver->getBestTree()->totalCost() << endl;
 		cout << "Arvore: ";
 		edges = solver->getBestTree()->getTree();
@@ -138,16 +115,16 @@ int main(int argc, char **argv) {
 		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
-		cout << "**Fim de execução**\n" << endl;*/
+		cout << "**Fim de execução**\n" << endl;
 
 		delete costMatrix;
 		delete solver;
-		//delete saver;
+		delete saver;
 	} else {
-		cout << "Essa versão só funciona a partir da leitura de um arquivo! " <<
-				"Caso não tenha um arquivo, você pode enviar algum arquivo de teste padrão " <<
-				"localizado na pasta instances/" << endl;
-		cout << "\nExemplo de execução: \"./Main instances/n5d2.in\"" << endl;
+		cout << "Essa versão só funciona a partir da leitura de um arquivo de entrada! " <<
+				"Você pode enviar algum dos arquivos de teste padrão " <<
+				"localizados na pasta instances/" << endl;
+		cout << "\nExemplo de execução: \"./Main instances/[EUC]n5d2.in\"" << endl;
 	}
 
 	return 0;
