@@ -1,5 +1,6 @@
 # Script para executar o programa 30 vezes
 # Recebe o caminho para a instancia como parametro
+# Exemplo de execucao: ./exec.run instances/\[EUC\]n7d2.in
 
 for ((i=1; i<=30; i++));
 do

@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
 		cout << "**Fim de execução**\n" << endl;
 
-		solver = new OptimizedBacktracking(costMatrix);
+		/*solver = new OptimizedBacktracking(costMatrix);
 		solver->findMinimum();
 		saver->writeAllResultsToFile(solver);
 		saver->writeGraphDataToFile(solver);
@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
 		cout << endl;
 		cout << "Soluções válidas: " << solver->getSolutions() << endl;
 		cout << "Tempo total gasto na busca pela solução: " << solver->getExecutionTime() << "s" << endl;
-		cout << "**Fim de execução**\n" << endl;
+		cout << "**Fim de execução**\n" << endl;*/
 
 		delete costMatrix;
 		delete solver;
